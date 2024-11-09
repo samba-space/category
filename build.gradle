@@ -45,47 +45,51 @@ dependencies {
     asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 }
 
-ext {
-    snippetsDir = file('build/generated-snippets')
-}
-
-tasks.named('test') {
+test {
     useJUnitPlatform()
-    outputs.dir snippetsDir
 }
 
-tasks.named('compileJava') {
-    dependsOn 'spotlessApply'
-}
-
-spotless {
-    java {
-        googleJavaFormat().aosp()
-        importOrder('java', 'javax', 'jakarta', 'org', 'com')
-        removeUnusedImports()
-        trimTrailingWhitespace()
-        endWithNewline()
-    }
-}
-
-asciidoctor {
-    configurations 'asciidoctorExt'
-    baseDirFollowsSourceFile()
-    inputs.dir snippetsDir
-    dependsOn test
-}
-
-asciidoctor.doFirst {
-    delete file('src/main/resources/static/docs')
-}
-
-task copyDocument(type: Copy) {
-    dependsOn asciidoctor
-    from file("build/docs/asciidoc")
-    into file("src/main/resources/static/docs")
-}
-
-build {
-    dependsOn copyDocument
-}
+//ext {
+//    snippetsDir = file('build/generated-snippets')
+//}
+//
+//tasks.named('test') {
+//    useJUnitPlatform()
+//    outputs.dir snippetsDir
+//}
+//
+//tasks.named('compileJava') {
+//    dependsOn 'spotlessApply'
+//}
+//
+//spotless {
+//    java {
+//        googleJavaFormat().aosp()
+//        importOrder('java', 'javax', 'jakarta', 'org', 'com')
+//        removeUnusedImports()
+//        trimTrailingWhitespace()
+//        endWithNewline()
+//    }
+//}
+//
+//asciidoctor {
+//    configurations 'asciidoctorExt'
+//    baseDirFollowsSourceFile()
+//    inputs.dir snippetsDir
+//    dependsOn test
+//}
+//
+//asciidoctor.doFirst {
+//    delete file('src/main/resources/static/docs')
+//}
+//
+//task copyDocument(type: Copy) {
+//    dependsOn asciidoctor
+//    from file("build/docs/asciidoc")
+//    into file("src/main/resources/static/docs")
+//}
+//
+//build {
+//    dependsOn copyDocument
+//}
 
