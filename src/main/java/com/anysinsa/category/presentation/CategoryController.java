@@ -22,7 +22,7 @@ public class CategoryController {
         return ResponseEntity.ok().body(categoryQueryRepository.findAll());
     }
 
-    @GetMapping(path = "/health")
+    @GetMapping(path = "/api/v1/categories/health")
     public String health() {
         return "ok-man-4";
     }
