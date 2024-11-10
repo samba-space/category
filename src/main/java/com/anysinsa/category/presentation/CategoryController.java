@@ -22,8 +22,8 @@ public class CategoryController {
         return ResponseEntity.ok().body(categoryQueryRepository.findAll());
     }
 
-    @GetMapping(path = "/api/v1/categories/health")
+    @GetMapping(path = "/health")
     public String health() {
-        return "ok-man-4";
+        return "health-category";
     }
 }
