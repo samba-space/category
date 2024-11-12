@@ -40,6 +40,10 @@ phases:
       - echo New task definition revision is $NEW_REVISION
       - echo Updating appspec.yml with new task definition...
       - sed -i.bak -e "s|category-service-task|category-service-task:$NEW_REVISION|g" appspec.yml
+      - echo New task definition revision is $NEW_REVISION
+      - echo Updating appspec.yml with new task definition...
+      - TASK_DEFINITION_ARN=$(echo $NEW_TASK_INFO | jq -r '.taskDefinition.taskDefinitionArn')
+      - sed -i.bak -e "s|<TASK_DEFINITION>|$TASK_DEFINITION_ARN|g" appspec.yml
 artifacts:
   files:
     - appspec.yml
