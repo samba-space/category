@@ -32,6 +32,6 @@ public class CategoryController {
 
     @GetMapping(path = "/api/v1/categories/health")
     public String health() {
-        return "health-category";
+        return "health-category2";
     }
 }
