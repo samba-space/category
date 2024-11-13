@@ -3,12 +3,14 @@ package com.anysinsa.category.presentation;
 import java.util.List;
 
 import com.anysinsa.category.application.dto.CategoryResponseDTO;
+import io.micrometer.observation.annotation.Observed;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.anysinsa.category.domain.Category;
 import com.anysinsa.category.domain.CategoryQueryRepository;
 
+@Observed
 @RestController
 public class CategoryController {
 
