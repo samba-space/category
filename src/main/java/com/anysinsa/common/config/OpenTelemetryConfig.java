@@ -1,6 +1,5 @@
 package com.anysinsa.common.config;
 
-import io.micrometer.observation.ObservationPredicate;
 import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -14,13 +13,5 @@ public class OpenTelemetryConfig {
         return OtlpGrpcSpanExporter.builder()
                 .setEndpoint(endpoint)
                 .build();
-    }
-
-    @Bean
-    public ObservationPredicate observationPredicate() {
-        return (name, context) -> {
-            String contextualName = context.getContextualName();
-            return contextualName != null && !contextualName.equals("/api/v1/categories/health");
-        };
     }
 }
