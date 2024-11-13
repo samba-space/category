@@ -27,6 +27,9 @@ public class CategoryController {
 
     @GetMapping(path = "/api/v1/categories/{id}")
     public ResponseEntity<CategoryResponseDTO> findCategoryById(@PathVariable Long id) {
+        if (id == 6L) {
+            throw new RuntimeException("Error 발생");
+        }
         Category category = categoryQueryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("카테고리를 찾을 수 없습니다."));
         return ResponseEntity.ok().body(new CategoryResponseDTO(category.getId(), category.getName()));
