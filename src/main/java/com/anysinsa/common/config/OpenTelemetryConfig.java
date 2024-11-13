@@ -20,7 +20,7 @@ public class OpenTelemetryConfig {
     public ObservationPredicate observationPredicate() {
         return (name, context) -> {
             String contextualName = context.getContextualName();
-            return contextualName != null && !contextualName.equals("/api/v1/products/health");
+            return contextualName != null && !contextualName.equals("/api/v1/categories/health");
         };
     }
 }
