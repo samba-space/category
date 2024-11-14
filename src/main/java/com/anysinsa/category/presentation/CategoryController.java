@@ -27,13 +27,13 @@ public class CategoryController {
 
     @GetMapping(path = "/api/v1/categories")
     public ResponseEntity<List<Category>> findCategories() {
-        logger.info("call CategoryController::findCategories");
+        logger.info("findCategories");
         return ResponseEntity.ok().body(categoryQueryRepository.findAll());
     }
 
     @GetMapping(path = "/api/v1/categories/{id}")
     public ResponseEntity<CategoryResponseDTO> findCategoryById(@PathVariable Long id) {
-        logger.info("call CategoryController::findCategories::{}", id);
+        logger.info("findCategories::{}", id);
         if (id == 6L) {
             throw new RuntimeException("Error 발생");
         }
