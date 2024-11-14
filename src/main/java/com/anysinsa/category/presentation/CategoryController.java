@@ -17,8 +17,9 @@ import com.anysinsa.category.domain.CategoryQueryRepository;
 @RestController
 public class CategoryController {
 
+    private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
+
     private final CategoryQueryRepository categoryQueryRepository;
-    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     public CategoryController(CategoryQueryRepository categoryQueryRepository) {
         this.categoryQueryRepository = categoryQueryRepository;
@@ -32,7 +33,7 @@ public class CategoryController {
 
     @GetMapping(path = "/api/v1/categories/{id}")
     public ResponseEntity<CategoryResponseDTO> findCategoryById(@PathVariable Long id) {
-        logger.info("call CategoryController::findCategories/{}", id);
+        logger.info("call CategoryController::findCategories::{}", id);
         if (id == 6L) {
             throw new RuntimeException("Error 발생");
         }
