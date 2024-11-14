@@ -3,7 +3,10 @@ package com.anysinsa.category.presentation;
 import java.util.List;
 
 import com.anysinsa.category.application.dto.CategoryResponseDTO;
+import com.anysinsa.common.handler.GlobalExceptionHandler;
 import io.micrometer.observation.annotation.Observed;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +18,7 @@ import com.anysinsa.category.domain.CategoryQueryRepository;
 public class CategoryController {
 
     private final CategoryQueryRepository categoryQueryRepository;
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     public CategoryController(CategoryQueryRepository categoryQueryRepository) {
         this.categoryQueryRepository = categoryQueryRepository;
@@ -22,11 +26,13 @@ public class CategoryController {
 
     @GetMapping(path = "/api/v1/categories")
     public ResponseEntity<List<Category>> findCategories() {
+        logger.info("call CategoryController::findCategories");
         return ResponseEntity.ok().body(categoryQueryRepository.findAll());
     }
 
     @GetMapping(path = "/api/v1/categories/{id}")
     public ResponseEntity<CategoryResponseDTO> findCategoryById(@PathVariable Long id) {
+        logger.info("call CategoryController::findCategories/{}", id);
         if (id == 6L) {
             throw new RuntimeException("Error 발생");
         }
