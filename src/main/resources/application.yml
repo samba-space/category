@@ -4,7 +4,7 @@ server:
     max-threads: 500
     max-connections: 20000
     accept-count: 1000
-    connection-timeout: 20000  # 20초
+    connection-timeout: 30000  # 30초
 management:
   tracing:
     sampling:
@@ -35,7 +35,7 @@ spring:
     hikari:
       maximum-pool-size: 100
       minimum-idle: 10
-      connection-timeout: 30000
+      connection-timeout: 25000
       idle-timeout: 600000
       max-lifetime: 1800000
   jpa:
