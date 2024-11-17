@@ -1,10 +1,10 @@
 server:
   port: 8081
-#  tomcat:
-#    max-threads: 500
-#    max-connections: 20000
-#    accept-count: 1000
-#    connection-timeout: 30000  # 30초
+  tomcat:
+    max-threads: 500
+    max-connections: 20000
+    accept-count: 1000
+    connection-timeout: 30000  # 30초
 management:
   tracing:
     sampling:
