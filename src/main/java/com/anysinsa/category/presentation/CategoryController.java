@@ -27,6 +27,7 @@ public class CategoryController {
 
     @GetMapping(path = "/api/v1/categories")
     public ResponseEntity<List<Category>> findCategories() {
+
         logger.info("findCategories");
         return ResponseEntity.ok().body(categoryQueryRepository.findAll());
     }
