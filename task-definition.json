@@ -1,5 +1,4 @@
 {
-    "taskDefinition": {
         "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:026090537156:task-definition/category-service-task:50",
         "containerDefinitions": [
             {
@@ -131,6 +130,4 @@
         "memory": "3072",
         "registeredAt": "2024-12-04T14:25:07.983000+09:00",
         "registeredBy": "arn:aws:sts::026090537156:assumed-role/codebuild-category-service-role/AWSCodeBuild-9d1a8584-a418-49ad-a13e-3be1b97b27f8"
-    },
-    "tags": []
 }
