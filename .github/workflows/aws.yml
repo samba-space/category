@@ -45,11 +45,11 @@ jobs:
 
       - name: Install Amazon Q CLI
         run: |
+          sudo apt-get update
+          sudo apt-get install -y libgl1-mesa-dev libegl1-mesa-dev libgstreamer1.0-0 gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-tools gstreamer1.0-x gstreamer1.0-alsa gstreamer1.0-gl gstreamer1.0-gtk3 gstreamer1.0-qt5 gstreamer1.0-pulseaudio
           curl --proto '=https' --tlsv1.2 -sSf https://desktop-release.q.us-east-1.amazonaws.com/latest/amazon-q.appimage -o amazon-q.appimage
           chmod +x amazon-q.appimage
           sudo mv amazon-q.appimage /usr/local/bin/amazon-q
-          sudo apt-get update
-          sudo apt-get install -y libfuse2
 
       - name: Generate Tests
         run: |
