@@ -38,14 +38,15 @@ jobs:
           unzip awscliv2.zip
           sudo ./aws/install --update
 
-      - name: Install Amazon Q Extension
+      - name: Install Amazon Q CLI
         run: |
-          aws configure add-extension --extension-name q
-          aws q configure
+          curl -o amazon-q-cli.zip https://d2kk4z0m6s1zwd.cloudfront.net/amazon-q-cli.zip
+          unzip amazon-q-cli.zip
+          sudo ./amazon-q-cli/install
 
       - name: Generate Tests
         run: |
-          aws q test generate \
+          amazon-q test generate \
             --input-file src/main/java/com/anysinsa/category/presentation/CategoryController.java \
             --output-file src/test/java/com/anysinsa/category/presentation/CategoryControllerTest.java
 
@@ -65,13 +66,6 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew build
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
 
       - name: Login to Amazon ECR
         id: login-ecr
