@@ -37,12 +37,18 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
+      - name: Install AWS CLI
+        run: |
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
+
       - name: Install Amazon Q CLI
-        run: pip install amazon-q-cli
+        run: aws q install
 
       - name: Generate Tests
         run: |
-          amazon-q test generate \
+          aws q test generate \
             --input-file src/main/java/com/anysinsa/category/presentation/CategoryController.java \
             --output-file src/test/java/com/anysinsa/category/presentation/CategoryControllerTest.java
 
