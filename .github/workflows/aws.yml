@@ -37,7 +37,7 @@ jobs:
     - name: Install Amazon Q Developer CLI
       run: sudo apt install -y ./amazon-q.deb
     - name: Q Login
-      run: q login
+      run:  q configure --non-interactive
     - name: Verify Amazon Q Developer CLI installation
       run: q doctor
 
