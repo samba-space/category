@@ -5,7 +5,8 @@ on:
     branches: [ "master" ]
 
 env:
-  AWS_REGION: ap-northeast-2
+  AWS_REGION: ap-northeast-2 # 배포용 리전
+  CODEGURU_REGION: us-east-1 # CodeGuru용 리전
   ECR_REPOSITORY: anysinsa/category
   ECS_SERVICE: category-service
   ECS_CLUSTER: PrdAnysinsaCluster
@@ -30,13 +31,13 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
+        aws-region: ${{ env.CODEGURU_REGION }}
 
     - name: CodeGuru Security
       uses: aws-actions/codeguru-security@v1
       with:
         source_path: .
-        aws_region: ${{ env.AWS_REGION }}
+        aws_region: ${{ env.CODEGURU_REGION }}
         fail_on_severity: Critical
 
     - name: Upload SARIF file
@@ -100,6 +101,13 @@ jobs:
         cluster: ${{ env.ECS_CLUSTER }}
         wait-for-service-stability: true
         codedeploy-appspec: appspec.yml
+
+    - name: Configure AWS credentials for CodeGuru
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.CODEGURU_REGION }}
 
     - name: CodeGuru Reviewer
       uses: aws-actions/codeguru-reviewer@v1
