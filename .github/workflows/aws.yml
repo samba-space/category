@@ -30,20 +30,27 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Configure AWS credentials for Amazon Q
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
       - name: Install Amazon Q CLI
-        run: |
-          curl --proto '=https' --tlsv1.2 -sSf https://desktop-release.q.us-east-1.amazonaws.com/latest/amazon-q.deb -o amazon-q.deb
-          sudo apt install -y ./amazon-q.deb
+        run: pip install amazon-q-cli
 
       - name: Generate Tests
         run: |
-          q /test --input-file src/main/java/com/anysinsa/category/presentation/CategoryController.java --output-file src/test/java/com/anysinsa/category/presentation/CategoryControllerTest.java
+          amazon-q test generate \
+            --input-file src/main/java/com/anysinsa/category/presentation/CategoryController.java \
+            --output-file src/test/java/com/anysinsa/category/presentation/CategoryControllerTest.java
 
       - name: Commit and Push Test File
         run: |
           git config --global user.name 'samba-space'
           git config --global user.email 'junkipark430@gmail.com'
-          git add src/test/java/com/example/CategoryControllerTest.java
+          git add src/test/java/com/anysinsa/category/presentation/CategoryControllerTest.java
           git commit -m 'Add generated test file for CategoryController'
           git push
 
