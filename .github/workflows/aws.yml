@@ -25,6 +25,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # 전체 Git 히스토리 가져오기
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -54,6 +56,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # 전체 Git 히스토리 가져오기
 
     - name: Set up JDK 17
       uses: actions/setup-java@v2
@@ -114,6 +118,9 @@ jobs:
       with:
         build_path: .
         s3_bucket: ${{ secrets.AWS_CODEGURU_REVIEWER_S3_BUCKET }}
+        name: "category-review-${{ github.sha }}"
+        source_commit: ${{ github.sha }}
+        destination_branch: "master"
 
     - name: Upload review results
       uses: github/codeql-action/upload-sarif@v2
