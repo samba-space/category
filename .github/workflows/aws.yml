@@ -30,8 +30,7 @@ jobs:
         curl --proto '=https' --tlsv1.2 -sSf https://desktop-release.q.us-east-1.amazonaws.com/latest/amazon-q.deb -o amazon-q.deb
     - name: Install Amazon Q Developer CLI
       run: |
-        sudo dpkg -i amazon-q.deb
-        sudo apt-get install -f
+        sudo apt install -y ./amazon-q.deb
     - name: Verify Amazon Q Developer CLI installation
       run: q doctor
 
