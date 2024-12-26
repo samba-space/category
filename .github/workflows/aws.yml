@@ -110,7 +110,7 @@ jobs:
         aws-region: ${{ env.CODEGURU_REGION }}
 
     - name: CodeGuru Reviewer
-      uses: aws-actions/codeguru-reviewer@v1
+      uses: aws-actions/codeguru-reviewer@v1.1
       with:
         build_path: .
         s3_bucket: ${{ secrets.AWS_CODEGURU_REVIEWER_S3_BUCKET }}
