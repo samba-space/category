@@ -20,17 +20,23 @@ permissions:
 jobs:
   deploy:
     name: Deploy
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     environment: production
 
     steps:
+    - name: Update package lists
+      run: sudo apt-get update
+
+    - name: Install dependencies
+      run: sudo apt-get install -y libayatana-appindicator3-1 libwebkit2gtk-4.0-37
 
     - name: Download Amazon Q Developer CLI
       run: |
         curl --proto '=https' --tlsv1.2 -sSf https://desktop-release.q.us-east-1.amazonaws.com/latest/amazon-q.deb -o amazon-q.deb
+
     - name: Install Amazon Q Developer CLI
-      run: |
-        sudo apt install -y ./amazon-q.deb
+      run: sudo apt install -y ./amazon-q.deb
+
     - name: Verify Amazon Q Developer CLI installation
       run: q doctor
 
