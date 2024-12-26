@@ -25,6 +25,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -32,17 +37,20 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Install AWS CLI and Amazon Q
+      - name: Install AWS CLI
         run: |
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
           unzip awscliv2.zip
           sudo ./aws/install --update
-          aws configure set plugins.cli_legacy_plugin_path /usr/local/aws-cli/v2/current/dist/awscli/plugins
-          aws configure set default.amazon-q true
+
+      - name: Install Amazon Q CLI
+        run: |
+          pip install --upgrade pip
+          pip install amazon-q-cli
 
       - name: Generate Tests
         run: |
-          aws q test generate \
+          amazon-q test generate \
             --input-file src/main/java/com/anysinsa/category/presentation/CategoryController.java \
             --output-file src/test/java/com/anysinsa/category/presentation/CategoryControllerTest.java
 
